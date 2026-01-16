@@ -4,7 +4,8 @@ import { Link } from 'react-router';
 import { CartContext } from '../../contexts/CartContext';
 
 export function Cart() {
-  const { cart } = React.useContext(CartContext);
+  const { cart, total, addItemCart, removeItemCart } =
+    React.useContext(CartContext);
 
   return (
     <div className="w-full max-w-7xl mx-auto">
@@ -31,11 +32,17 @@ export function Cart() {
           <strong>Preço: {item.price}</strong>
 
           <div className="flex items-center justify-center gap-3">
-            <button className="bg-slate-600 px-2 rounded text-white font-medium flex items-center justify-center">
+            <button
+              className="bg-slate-600 px-2 rounded text-white font-medium flex items-center justify-center"
+              onClick={() => removeItemCart(item)}
+            >
               -
             </button>
             {item.amount}
-            <button className="bg-slate-600 px-2 rounded text-white font-medium flex items-center justify-center">
+            <button
+              className="bg-slate-600 px-2 rounded text-white font-medium flex items-center justify-center"
+              onClick={() => addItemCart(item)}
+            >
               +
             </button>
             <strong className="float-right">
@@ -48,7 +55,7 @@ export function Cart() {
           </div>
         </section>
       ))}
-      {cart.length !== 0 && <p className="font-bold mt-4">Total: R$1.000</p>}
+      {cart.length !== 0 && <p className="font-bold mt-4">Total: {total}</p>}
     </div>
   );
 }
